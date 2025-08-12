@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alriar's TaskMate - Smart Offline Todo App</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Alriar's TaskMate">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVmNCIgcng9IjQiLz48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+">
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#4285f4">
+    <meta name="msapplication-TileColor" content="#4285f4">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzQyODVmNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6Ii8+PC9zdmc+">
+    <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzQyODVmNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6Ii8+PC9zdmc+">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVmNCIgcng9IjQiLz48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+">
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzQyODVmNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6Ii8+PC9zdmc+">
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzQyODVmNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6Ii8+PC9zdmc+">
+    <meta name="msapplication-TileImage" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0IiBoZWlnaHQ9IjE0NCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVmNCIgcng9IjQiLz48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A powerful offline todo app with smart notifications and task management. Works completely offline, no login required.">
+    <meta name="keywords" content="todo app, task management, offline, PWA, notifications, productivity">
+    <meta name="author" content="Shariar">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Alriar's TaskMate - Smart Offline Todo App">
+    <meta property="og:description" content="A powerful offline todo app with smart notifications and task management">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MzAiIHZpZXdCb3g9IjAgMCAxMjAwIDYzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MzAiIGZpbGw9IiM0Mjg1ZjQiLz48dGV4dCB4PSI2MDAiIHk9IjI4MCIgZmlsbD0iI2ZmZiIgZm9udC1zaXplPSI4MCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPvCfk50gQWxyaWFyJ3MgVGFza01hdGU8L3RleHQ+PHRleHQgeD0iNjAwIiB5PSIzODAiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlNtYXJ0IE9mZmxpbmUgVG9kbyBBcHA8L3RleHQ+PC9zdmc+">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alriar's TaskMate - Smart Offline Todo App">
+    <meta name="twitter:description" content="A powerful offline todo app with smart notifications and task management">
+    
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --primary-dark: #3367d6;
+            --success-color: #34a853;
+            --warning-color: #fbbc04;
+            --danger-color: #ea4335;
+            --background: #f8f9fa;
+            --surface: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border: #dadce0;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --radius: 8px;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #121212;
+                --surface: #1e1e1e;
+                --text-primary: #e8eaed;
+                --text-secondary: #9aa0a6;
+                --border: #3c4043;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .status-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .badge {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        
+        .badge.online { background: #e8f5e8; color: var(--success-color); }
+        .badge.offline { background: #fce8e6; color: var(--danger-color); }
+        .badge.notifications { background: #e3f2fd; color: var(--primary-color); }
+        
+        .task-form {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: 2fr 200px 120px auto;
+            }
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        label {
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        input, button, select {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--surface);
+            color: var(--text-primary);
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+        }
+        
+        .btn {
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn:hover { transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover { background: var(--primary-dark); }
+        
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { background: var(--background); }
+        
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.875rem;
+        }
+        
+        .task-list {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .task-list h2 {
+            padding: 20px 24px;
+            margin: 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .task-item {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+        
+        .task-item:last-child { border-bottom: none; }
+        .task-item:hover { background: var(--background); }
+        .task-item.completed { opacity: 0.6; }
+        
+        @media (min-width: 768px) {
+            .task-item {
+                grid-template-columns: auto 1fr auto;
+                align-items: center;
+            }
+        }
+        
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .task-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .task-title {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        .task-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        
+        .progress-bar {
+            background: var(--border);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+        
+        .progress-fill {
+            background: var(--success-color);
+            height: 100%;
+            transition: width 0.3s;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: var(--surface);
+            padding: 16px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .notification-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-top: 16px;
+        }
+        
+        .hidden { display: none !important; }
+        
+        @media (max-width: 767px) {
+            .container { padding: 12px; }
+            .header { padding: 16px; }
+            .task-form { padding: 16px; }
+            .header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Status -->
+        <div class="header">
+            <h1>
+                📝 Alriar's TaskMate
+            </h1>
+            <div class="status-bar">
+                <span id="onlineStatus" class="badge">Checking...</span>
+                <span id="notificationStatus" class="badge">Notifications: Checking...</span>
+                <button id="enableNotifications" class="btn btn-secondary btn-small hidden">
+                    🔔 Enable Notifications
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completedTasks">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingTasks">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayTasks">0</div>
+                <div class="stat-label">Due Today</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+
+        <!-- Add Task Form -->
+        <div class="task-form">
+            <h2>➕ Add New Task</h2>
+            <form id="taskForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title</label>
+                        <input type="text" id="taskTitle" placeholder="What do you need to do?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDateTime">Due Date & Time</label>
+                        <input type="datetime-local" id="taskDateTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="taskPriority">Priority</label>
+                        <select id="taskPriority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-primary">
+                            ➕ Add Task
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Description (Optional)</label>
+                    <input type="text" id="taskDescription" placeholder="Add more details...">
+                </div>
+            </form>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list">
+            <h2>
+                📋 Your Tasks
+                <div style="margin-left: auto; display: flex; gap: 8px;">
+                    <button id="clearCompleted" class="btn btn-secondary btn-small">
+                        🗑️ Clear Completed
+                    </button>
+                    <select id="filterTasks" class="btn btn-secondary btn-small" style="min-width: 120px;">
+                        <option value="all">All Tasks</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="today">Due Today</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                </div>
+            </h2>
+            <div id="taskContainer">
+                <div class="empty-state" id="emptyState">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                    </svg>
+                    <h3>No tasks yet!</h3>
+                    <p>Add your first task above to get started.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register('/sw.js');
+                    console.log('SW registered:', registration);
+                } catch (error) {
+                    console.log('SW registration failed:', error);
+                }
+            });
+        }
+
+        // App State
+        class TodoApp {
+            constructor() {
+                this.tasks = this.loadTasks();
+                this.currentFilter = 'all';
+                this.notificationTimers = new Map();
+                this.notificationIcon = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVmNCIgcng9IjQiLz48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+';
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.updateUI();
+                this.updateOnlineStatus();
+                this.checkNotificationPermission();
+                this.scheduleAllNotifications();
+                
+                // Update online status
+                window.addEventListener('online', () => this.updateOnlineStatus());
+                window.addEventListener('offline', () => this.updateOnlineStatus());
+            }
+
+            bindEvents() {
+                // Form submission
+                document.getElementById('taskForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addTask();
+                });
+
+                // Filter tasks
+                document.getElementById('filterTasks').addEventListener('change', (e) => {
+                    this.currentFilter = e.target.value;
+                    this.renderTasks();
+                });
+
+                // Clear completed tasks
+                document.getElementById('clearCompleted').addEventListener('click', () => {
+                    this.clearCompleted();
+                });
+
+                // Enable notifications
+                document.getElementById('enableNotifications').addEventListener('click', () => {
+                    this.requestNotificationPermission();
+                });
+            }
+
+            // Task Management
+            addTask() {
+                const title = document.getElementById('taskTitle').value.trim();
+                const description = document.getElementById('taskDescription').value.trim();
+                const dateTime = document.getElementById('taskDateTime').value;
+                const priority = document.getElementById('taskPriority').value;
+
+                if (!title) {
+                    document.getElementById('taskTitle').focus();
+                    return;
+                }
+
+                const task = {
+                    id: this.generateId(),
+                    title,
+                    description,
+                    dateTime: dateTime || null,
+                    priority,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+
+                this.tasks.push(task);
+                this.saveTasks();
+                this.scheduleNotification(task);
+                this.updateUI();
+                this.clearForm();
+            }
+
+            toggleTask(id) {
+                const task = this.tasks.find(t => t.id === id);
+                if (task) {
+                    task.completed = !task.completed;
+                    task.completedAt = task.completed ? new Date().toISOString() : null;
+                    this.saveTasks();
+                    this.updateUI();
+                }
+            }
+
+            deleteTask(id) {
+                this.tasks = this.tasks.filter(t => t.id !== id);
+                this.clearNotification(id);
+                this.saveTasks();
+                this.updateUI();
+            }
+
+            clearCompleted() {
+                this.tasks = this.tasks.filter(t => !t.completed);
+                this.saveTasks();
+                this.updateUI();
+            }
+
+            // Data Persistence
+            loadTasks() {
+                try {
+                    const stored = localStorage.getItem('smart-todo-tasks');
+                    return stored ? JSON.parse(stored) : [];
+                } catch (error) {
+                    console.error('Error loading tasks:', error);
+                    return [];
+                }
+            }
+
+            saveTasks() {
+                try {
+                    localStorage.setItem('smart-todo-tasks', JSON.stringify(this.tasks));
+                } catch (error) {
+                    console.error('Error saving tasks:', error);
+                }
+            }
+
+            // UI Updates
+            updateUI() {
+                this.updateStats();
+                this.updateProgress();
+                this.renderTasks();
+            }
+
+            updateStats() {
+                const total = this.tasks.length;
+                const completed = this.tasks.filter(t => t.completed).length;
+                const pending = total - completed;
+                const today = this.getTodayTasks().length;
+
+                document.getElementById('totalTasks').textContent = total;
+                document.getElementById('completedTasks').textContent = completed;
+                document.getElementById('pendingTasks').textContent = pending;
+                document.getElementById('todayTasks').textContent = today;
+            }
+
+            updateProgress() {
+                const total = this.tasks.length;
+                const completed = this.tasks.filter(t => t.completed).length;
+                const percentage = total > 0 ? (completed / total) * 100 : 0;
+                document.getElementById('progressFill').style.width = `${percentage}%`;
+            }
+
+            renderTasks() {
+                const container = document.getElementById('taskContainer');
+                const emptyState = document.getElementById('emptyState');
+                
+                let filteredTasks = this.getFilteredTasks();
+                
+                if (filteredTasks.length === 0) {
+                    emptyState.classList.remove('hidden');
+                    container.innerHTML = '';
+                    container.appendChild(emptyState);
+                    return;
+                }
+
+                emptyState.classList.add('hidden');
+                
+                // Sort tasks: incomplete first, then by priority, then by date
+                filteredTasks.sort((a, b) => {
+                    if (a.completed !== b.completed) {
+                        return a.completed ? 1 : -1;
+                    }
+                    
+                    const priorityOrder = { high: 3, medium: 2, low: 1 };
+                    if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+                        return priorityOrder[b.priority] - priorityOrder[a.priority];
+                    }
+                    
+                    if (a.dateTime && b.dateTime) {
+                        return new Date(a.dateTime) - new Date(b.dateTime);
+                    }
+                    
+                    return new Date(a.createdAt) - new Date(b.createdAt);
+                });
+
+                container.innerHTML = filteredTasks.map(task => this.renderTask(task)).join('');
+            }
+
+            renderTask(task) {
+                const dueDate = task.dateTime ? new Date(task.dateTime) : null;
+                const isOverdue = dueDate && dueDate < new Date() && !task.completed;
+                const isToday = dueDate && this.isToday(dueDate);
+                
+                const priorityColors = {
+                    high: '#ea4335',
+                    medium: '#fbbc04',
+                    low: '#34a853'
+                };
+
+                return `
+                    <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} 
+                               onchange="app.toggleTask('${task.id}')">
+                        
+                        <div class="task-content">
+                            <div class="task-title" style="${task.completed ? 'text-decoration: line-through;' : ''}">
+                                ${this.escapeHtml(task.title)}
+                            </div>
+                            <div class="task-meta">
+                                ${task.description ? `<span>📄 ${this.escapeHtml(task.description)}</span>` : ''}
+                                <span style="color: ${priorityColors[task.priority]}">
+                                    🔴 ${task.priority.toUpperCase()}
+                                </span>
+                                ${dueDate ? `
+                                    <span style="color: ${isOverdue ? '#ea4335' : isToday ? '#fbbc04' : 'inherit'}">
+                                        📅 ${this.formatDate(dueDate)}
+                                        ${isOverdue ? '(Overdue!)' : isToday ? '(Today)' : ''}
+                                    </span>
+                                ` : ''}
+                            </div>
+                        </div>
+                        
+                        <div class="task-actions">
+                            <button class="btn btn-secondary btn-small" onclick="app.testNotification('${task.id}')" 
+                                    title="Test notification">
+                                🔔
+                            </button>
+                            <button class="btn btn-danger btn-small" onclick="app.deleteTask('${task.id}')" 
+                                    title="Delete task">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Filtering
+            getFilteredTasks() {
+                switch (this.currentFilter) {
+                    case 'pending':
+                        return this.tasks.filter(t => !t.completed);
+                    case 'completed':
+                        return this.tasks.filter(t => t.completed);
+                    case 'today':
+                        return this.getTodayTasks();
+                    case 'high':
+                        return this.tasks.filter(t => t.priority === 'high' && !t.completed);
+                    default:
+                        return this.tasks;
+                }
+            }
+
+            getTodayTasks() {
+                const today = new Date().toDateString();
+                return this.tasks.filter(t => {
+                    if (!t.dateTime) return false;
+                    return new Date(t.dateTime).toDateString() === today;
+                });
+            }
+
+            // Notifications
+            async checkNotificationPermission() {
+                if (!('Notification' in window)) {
+                    document.getElementById('notificationStatus').textContent = 'Notifications: Not supported';
+                    return;
+                }
+
+                const permission = Notification.permission;
+                const statusEl = document.getElementById('notificationStatus');
+                const enableBtn = document.getElementById('enableNotifications');
+
+                switch (permission) {
+                    case 'granted':
+                        statusEl.textContent = 'Notifications: Enabled';
+                        statusEl.className = 'badge notifications';
+                        enableBtn.classList.add('hidden');
+                        break;
+                    case 'denied':
+                        statusEl.textContent = 'Notifications: Blocked';
+                        statusEl.className = 'badge offline';
+                        enableBtn.classList.add('hidden');
+                        break;
+                    default:
+                        statusEl.textContent = 'Notifications: Disabled';
+                        statusEl.className = 'badge';
+                        enableBtn.classList.remove('hidden');
+                }
+            }
+
+            async requestNotificationPermission() {
+                try {
+                    const permission = await Notification.requestPermission();
+                    this.checkNotificationPermission();
+                    
+                    if (permission === 'granted') {
+                        new Notification('🎉 Notifications Enabled!', {
+                            body: 'You\'ll now receive reminders for your tasks.',
+                            icon: this.notificationIcon
+                        });
+                        this.scheduleAllNotifications();
+                    }
+                } catch (error) {
+                    console.error('Error requesting notification permission:', error);
+                }
+            }
+
+            scheduleNotification(task) {
+                if (!task.dateTime || task.completed || Notification.permission !== 'granted') {
+                    return;
+                }
+
+                const notificationTime = new Date(task.dateTime).getTime();
+                const now = Date.now();
+                const delay = notificationTime - now;
+
+                if (delay > 0) {
+                    const timeoutId = setTimeout(() => {
+                        this.showNotification(task);
+                    }, delay);
+                    
+                    this.notificationTimers.set(task.id, timeoutId);
+                }
+            }
+
+            scheduleAllNotifications() {
+                this.clearAllNotifications();
+                this.tasks.forEach(task => this.scheduleNotification(task));
+            }
+
+            clearNotification(taskId) {
+                const timeoutId = this.notificationTimers.get(taskId);
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                    this.notificationTimers.delete(taskId);
+                }
+            }
+
+            clearAllNotifications() {
+                this.notificationTimers.forEach(timeoutId => clearTimeout(timeoutId));
+                this.notificationTimers.clear();
+            }
+
+            showNotification(task) {
+                if (Notification.permission === 'granted') {
+                    new Notification(`📝 Task Reminder: ${task.title}`, {
+                        body: task.description || 'Time to work on this task!',
+                        icon: this.notificationIcon,
+                        badge: this.notificationIcon,
+                        tag: task.id,
+                        requireInteraction: true,
+                        actions: [
+                            { action: 'complete', title: '✅ Mark Complete' },
+                            { action: 'snooze', title: '⏰ Snooze 10min' }
+                        ]
+                    });
+                }
+            }
+
+            testNotification(taskId) {
+                const task = this.tasks.find(t => t.id === taskId);
+                if (task) {
+                    this.showNotification(task);
+                }
+            }
+
+            // Utility Functions
+            updateOnlineStatus() {
+                const statusEl = document.getElementById('onlineStatus');
+                const isOnline = navigator.onLine;
+                
+                statusEl.textContent = isOnline ? 'Online' : 'Offline';
+                statusEl.className = `badge ${isOnline ? 'online' : 'offline'}`;
+            }
+
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            }
+
+            clearForm() {
+                document.getElementById('taskTitle').value = '';
+                document.getElementById('taskDescription').value = '';
+                document.getElementById('taskDateTime').value = '';
+                document.getElementById('taskPriority').value = 'medium';
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            formatDate(date) {
+                return date.toLocaleString([], { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+            }
+
+            isToday(date) {
+                const today = new Date();
+                return date.toDateString() === today.toDateString();
+            }
+        }
+
+        // Initialize the app
+        const app = new TodoApp();
+
+        // Handle notification clicks
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', event => {
+                if (event.data && event.data.action === 'notification-click') {
+                    const { taskId, action } = event.data;
+                    
+                    if (action === 'complete') {
+                        app.toggleTask(taskId);
+                    } else if (action === 'snooze') {
+                        const task = app.tasks.find(t => t.id === taskId);
+                        if (task && task.dateTime) {
+                            const snoozeTime = new Date(task.dateTime);
+                            snoozeTime.setMinutes(snoozeTime.getMinutes() + 10);
+                            task.dateTime = snoozeTime.toISOString().slice(0, 16);
+                            app.saveTasks();
+                            app.scheduleNotification(task);
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "name": "Alriar's TaskMate - Smart Offline Todo App",
+  "short_name": "TaskMate",
+  "description": "A powerful offline todo app with smart notifications and task management. Created by Shariar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#4285f4",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNDI4NWY0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xOSAzSDVjLTEuMSAwLTIgLjktMiAydjE0YzAgMS4xLjkgMiAyIDJoMTRjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptLTUgMTRIN3YtMmg3djJ6bTMtNEg3di0yaDEwdjJ6bTAtNEg3VjdoMTB2MnoiLz48L3N2Zz4=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNDI4NWY0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xOSAzSDVjLTEuMSAwLTIgLjktMiAydjE0YzAgMS4xLjkgMiAyIDJoMTRjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptLTUgMTRIN3YtMmg3djJ6bTMtNEg3di0yaDEwdjJ6bTAtNEg3VjdoMTB2MnoiLz48L3N2Zz4=",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVmNCIgcng9IjQiLz48cGF0aCBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bS01IDE0SDd2LTJoN3Yyem0zLTRIN3YtMmgxMHYyem0wLTRIN1Y3aDEwdjJ6IiBmaWxsPSIjZmZmIi8+PC9zdmc+",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Add New Task",
+      "short_name": "New Task",
+      "description": "Quickly add a new task",
+      "url": "/?action=new",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwNzYzMyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkgMTNoLTZ2NmgtMnYtNkg1di0yaDZWNWgydjZoNnYyeiIvPjwvc3ZnPg==",
+          "sizes": "24x24",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "View Today's Tasks",
+      "short_name": "Today",
+      "description": "View tasks due today",
+      "url": "/?filter=today",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZiYmMwNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOSAxMUg3djJoMnYtMnptNCAwaC0ydjJoMnYtMnptNCAwbS0ydjJoMnYtMnptMi05SDNjLTEuMTEgMC0yIC45LTIgMnYxNGMwIDEuMSAuODkgMiAyIDJoMTZjMS4xIDAgMi0uOSAyLTJWNmMwLTEuMS0uOS0yLTItMnpNMTkgMjBIM1Y5aDE2djExeiIvPjwvc3ZnPg==",
+          "sizes": "24x24",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgdmlld0JveD0iMCAwIDMyMCA1NjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMyMCIgaGVpZ2h0PSI1NjgiIGZpbGw9IiNmOGY5ZmEiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIyODAiIGhlaWdodD0iMTAwIiBmaWxsPSIjZmZmIiByeD0iOCIvPjx0ZXh0IHg9IjQwIiB5PSI2MCIgZmlsbD0iIzQyODVmNCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiPvCfk50gU21hcnQgVG9kbyBBcHA8L3RleHQ+PHJlY3QgeD0iMjAiIHk9IjE0MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNmZmYiIHJ4PSI4Ii8+PHRleHQgeD0iNDAiIHk9IjE4MCIgZmlsbD0iIzIwMjEyNCIgZm9udC1zaXplPSIxOCI+8J+OryBBZGQgTmV3IFRhc2s8L3RleHQ+PC9zdmc+",
+      "sizes": "320x568",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4MCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxMjgwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTI4MCIgaGVpZ2h0PSI4MDAiIGZpbGw9IiNmOGY5ZmEiLz48cmVjdCB4PSI2NCIgeT0iNDAiIHdpZHRoPSIxMTUyIiBoZWlnaHQ9IjEyMCIgZmlsbD0iI2ZmZiIgcng9IjE2Ii8+PHRleHQgeD0iMTAwIiB5PSIxMjAiIGZpbGw9IiM0Mjg1ZjQiIGZvbnQtc2l6ZT0iNDAiIGZvbnQtd2VpZ2h0PSJib2xkIj7wn5OdIFNtYXJ0IFRvZG8gQXBwPC90ZXh0PjxyZWN0IHg9IjY0IiB5PSIyMDAiIHdpZHRoPSIxMTUyIiBoZWlnaHQ9IjU2MCIgZmlsbD0iI2ZmZiIgcng9IjE2Ii8+PHRleHQgeD0iMTAwIiB5PSIyNjAiIGZpbGw9IiMyMDIxMjQiIGZvbnQtc2l6ZT0iMjgiPvCfjq8gQWRkIE5ldyBUYXNrPC90ZXh0Pjx0ZXh0IHg9IjEwMCIgeT0iMzQwIiBmaWxsPSIjMjAyMTI0IiBmb250LXNpemU9IjIwIj7wn4+LIFlvdXIgVGFza3M8L3RleHQ+PC9zdmc+",
+      "sizes": "1280x800",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    }
+  ]
+}
